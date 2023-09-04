@@ -1,0 +1,11 @@
+[Unit]
+Description=Controller Service
+
+[Install]
+WantedBy=default.target
+
+[Service]
+Type=simple
+ExecStart=/bin/python3 /home/pi/controller/main.py
+Restart=always
+Environment=PYTHONUNBUFFERED=1
