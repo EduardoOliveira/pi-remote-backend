@@ -1,5 +1,6 @@
 [Unit]
 Description=Controller Service
+After=network.target
 
 [Install]
 WantedBy=default.target
