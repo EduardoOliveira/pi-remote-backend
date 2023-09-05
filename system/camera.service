@@ -1,0 +1,15 @@
+[Unit]
+Description=Camera Service
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/pi-remote-backend/system/
+ExecStart=/usr/bin/bash run-mjpg-streamer.sh
+Restart=always
+RestartSec=5
+Environment=
+
+[Install]
+WantedBy=multi-user.target

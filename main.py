@@ -100,6 +100,7 @@ async def handleShutdown():
         tbot.set_button_led(BUTTON_A, max(1-(counter*0.2),0))
 
 async def root_handler(request):
+    print('qweqwe')
     return web.HTTPFound('/index.html')
 
 async def run_web_server():

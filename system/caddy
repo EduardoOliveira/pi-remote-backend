@@ -1,0 +1,14 @@
+{
+    http_port 8088
+    debug
+    
+}
+
+http:// {
+    
+    handle_path /cam/* {
+        reverse_proxy 127.0.0.1:8080
+    }
+    reverse_proxy /* 127.0.0.1:8000
+    
+}

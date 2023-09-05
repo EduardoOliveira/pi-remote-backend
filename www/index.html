@@ -1,6 +1,6 @@
 <head>
-    <meta charset="utf-8">
-    <!--
+  <meta charset="utf-8">
+  <!--
     
     Gamepad API Test
     
@@ -11,22 +11,24 @@
     You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
     
     -->
-    <script type="text/javascript" src="connection.js"></script>
-    <script type="text/javascript" src="controller.js"></script>
-    <style>
+  <script type="text/javascript" src="nipple.js"></script>
+  <script type="text/javascript" src="connection.js"></script>
+  <script type="text/javascript" src="controller.js"></script>
+  <style>
     .axes {
       padding: 1em;
     }
-    
+
     .buttons {
       margin-left: 1em;
     }
-    
-    /*meter*/.axis {
+
+    /*meter*/
+    .axis {
       min-width: 200px;
       margin: 1em;
     }
-    
+
     .button {
       display: inline-block;
       width: 1em;
@@ -39,11 +41,11 @@
       background-position: 50% 50%;
       background-repeat: no-repeat;
     }
-    
+
     .pressed {
       border: 1px solid red;
     }
-    
+
     .touched::after {
       content: "touch";
       display: block;
@@ -53,9 +55,44 @@
       font-size: 0.8em;
       opacity: 0.7;
     }
-    </style>
-    </head>
-    <body>
-    <h2 id="start">Press a button on your controller to start</h2>
-    </body>
-    </html>
+  </style>
+</head>
+
+<body>
+  <div id="joystick_zone" style="position: absolute;top:0;left:0">
+    <img src="/cam/?action=stream" style="object-fit: cover" />
+  </div>
+  <h2 id="start">Press a button on your controller to start</h2>
+</body>
+
+<script type="text/javascript">
+  (function () {
+    var options = {
+      zone: document.getElementById('joystick_zone'),
+      color: 'blue'
+    };
+    var manager = nipplejs.create(options);
+    manager.on('move', function (e, o) {
+
+      var moveCommand = {
+        'move': {
+          'lx': null,
+          'ly': null
+        }
+      };
+      moveCommand.move.lx =  Math.cos(o.angle.radian) /2;
+      moveCommand.move.ly = -Math.sin(o.angle.radian) /2;
+      socket.send(JSON.stringify(moveCommand));
+    }).on('end', function (e, o) {
+      var moveCommand = {
+        'move': {
+          'lx': 0,
+          'ly': 0
+        }
+      };
+      socket.send(JSON.stringify(moveCommand));
+    });
+  })()
+</script>
+
+</html>

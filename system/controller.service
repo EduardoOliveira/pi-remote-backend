@@ -6,6 +6,7 @@ WantedBy=default.target
 
 [Service]
 Type=simple
-ExecStart=/bin/python3 /home/pi/controller/main.py
+WorkingDirectory=/home/pi/pi-remote-backend/
+ExecStart=/bin/python3 main.py
 Restart=always
 Environment=PYTHONUNBUFFERED=1
